@@ -2,6 +2,9 @@ package test_data;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import helpers.Attach;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,8 +12,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.Map;
 
-import static com.codeborne.selenide.Selenide.executeJavaScript;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
+
 
 public class TestBase {
 
@@ -20,31 +23,29 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browser = "chrome";
         Configuration.browserVersion = "148.0";
-        Configuration.timeout = 15000;
-        ChromeOptions chromeOptions = new ChromeOptions();
+         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--disable-dev-shm-usage", "--no-sandbox");
         chromeOptions.setCapability("se:cdpEnabled", false);
         chromeOptions.setCapability("selenoid:options", Map.of(
-                "enableVNC", true,
-                "enableVideo", false
+         "enableVNC", true,
+         "enableVideo", false
         ));
         Configuration.browserCapabilities = chromeOptions;
         Configuration.remote = "https://user1:1234@selenoid.qa.guru/wd/hub";
     }
 
     @BeforeEach
-    void setupTest() {
-
-        open("/automation-practice-form");
-
-        executeJavaScript("""
-                document.getElementById('fixedban')?.remove();
-                document.querySelector('footer')?.remove();
-                """);
+    void addListener() {
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide().screenshots(true).savePageSource(true));
     }
 
     @AfterEach
-    void afterEach() {
-        Selenide.closeWebDriver();
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+        closeWebDriver();
     }
 }

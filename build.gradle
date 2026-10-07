@@ -13,6 +13,7 @@ dependencies {
             "com.github.javafaker:javafaker:1.0.2",
             "org.slf4j:slf4j-simple:2.0.17",
             "org.junit.jupiter:junit-jupiter",
+            "io.qameta.allure:allure-selenide:2.32.0"
     )
     testImplementation platform("org.junit:junit-bom:5.10.2")
 
