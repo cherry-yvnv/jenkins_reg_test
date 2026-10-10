@@ -28,7 +28,7 @@ public class TestBase {
         chromeOptions.setCapability("se:cdpEnabled", false);
         chromeOptions.setCapability("selenoid:options", Map.of(
          "enableVNC", true,
-         "enableVideo", false
+         "enableVideo", true
         ));
         Configuration.browserCapabilities = chromeOptions;
         Configuration.remote = "https://user1:1234@selenoid.qa.guru/wd/hub";
