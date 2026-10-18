@@ -19,29 +19,29 @@ public class TestBase {
 
     @BeforeAll
     static void setupSelenideConfig() {
-        String baseUrl        = System.getProperty("baseUrl", "https://demoqa.com");
+        String baseUrl  = System.getProperty("baseUrl", "https://demoqa.com");
 
-        String selenoidHost   = System.getProperty("selenoidHost", "selenoid.qa.guru");
-        String selenoidLogin  = System.getProperty("selenoidLogin", "user1");
+        String selenoidHost = System.getProperty("selenoidHost", "selenoid.qa.guru");
+        String selenoidLogin = System.getProperty("selenoidLogin", "user1");
         String selenoidPassword = System.getProperty("selenoidPassword", "1234");
-        String selenoidPath   = System.getProperty("selenoidPath", "wd/hub");
+        String selenoidPath = System.getProperty("selenoidPath", "wd/hub");
 
-        String browser        = System.getProperty("browser", "chrome");
+        String browser = System.getProperty("browser", "chrome");
         String browserVersion = System.getProperty("browserVersion", "148.0");
-        boolean headless      = Boolean.parseBoolean(System.getProperty("headless", "false"));
-        String browserSize    = System.getProperty("browserSize", "1920x1080");
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        String browserSize = System.getProperty("browserSize", "1920x1080");
 
         String remoteUrl = String.format(
                 "https://%s:%s@%s/%s",
                 selenoidLogin, selenoidPassword, selenoidHost, selenoidPath
         );
 
-        Configuration.baseUrl        = baseUrl;
-        Configuration.remote         = remoteUrl;
-        Configuration.browser        = browser;
+        Configuration.baseUrl = baseUrl;
+        Configuration.remote = remoteUrl;
+        Configuration.browser = browser;
         Configuration.browserVersion = browserVersion;
-        Configuration.headless       = headless;
-        Configuration.browserSize    = browserSize;
+        Configuration.headless = headless;
+        Configuration.browserSize = browserSize;
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--disable-dev-shm-usage", "--no-sandbox");
