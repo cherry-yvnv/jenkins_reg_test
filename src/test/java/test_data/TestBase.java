@@ -18,20 +18,13 @@ public class TestBase {
 
     @BeforeAll
     static void setupSelenideConfig() {
-        String baseUrl        = System.getProperty("baseUrl", "https://demoqa.com");
-        String remoteUrl      = System.getProperty("remoteUrl",
+        Configuration.baseUrl = System.getProperty("baseUrl", "https://demoqa.com");
+        Configuration.remote = System.getProperty("remoteUrl",
                 "https://user1:1234@selenoid.qa.guru/wd/hub");
-        String browser        = System.getProperty("browser", "chrome");
-        String browserVersion = System.getProperty("browserVersion", "148.0");
-        boolean headless      = Boolean.parseBoolean(System.getProperty("headless", "false"));
-        String browserSize    = System.getProperty("browserSize", "1920x1080");
-
-        Configuration.baseUrl        = baseUrl;
-        Configuration.remote         = remoteUrl;
-        Configuration.browser        = browser;
-        Configuration.browserVersion = browserVersion;
-        Configuration.headless       = headless;
-        Configuration.browserSize    = browserSize;
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browserVersion", "148.0");
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--disable-dev-shm-usage", "--no-sandbox");
